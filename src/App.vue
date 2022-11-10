@@ -1,26 +1,43 @@
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <div class="container">
+      <img alt="logo" class="img" src="./assets/spiral.png">   
+      <h1> Fibonacci calculator </h1>
+      <div class="inputWrapper">
+         <input class="inputPlace" type="number" placeholder="Input" v-model="number">
+         <label class="inputPlace">{{ fibonacci }} </label>
+      </div>
+      <button v-on:click="fibonacciSequence">Calculate</button>
+   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      number: null,
+      fibonacci: "Result: XX"
+    }
+  },
+  methods: {
+    fibonacciSequence: function() {
+     let fib = [];
+     let result = [];
+
+      fib[0] = 0;
+      fib[1] = 1;
+      for (let i = 2; i < this.number; i++) {
+        // Next fibonacci number = previous + one before previous
+        fib[i] = fib[i - 2] + fib[i - 1];
+        result.push(fib[i]);
+      }
+      result.unshift(1);
+      result.unshift(0);
+      
+      this.fibonacci = result;
+      
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
